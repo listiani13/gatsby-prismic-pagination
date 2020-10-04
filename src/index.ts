@@ -5,7 +5,7 @@ const convertObjectToString = (value: any) => {
   let connectionArgs = ''
   if (typeof value === 'object' && !Array.isArray(value)) {
     Object.keys(value).map(key => {
-      connectionArgs += `${key}: ${value[key]}`
+      connectionArgs += `${key}: '${value[key]}'`
     })
   }
   return `{${connectionArgs}}`
