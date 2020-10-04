@@ -23,7 +23,11 @@ export const prismicPagination = async (args: {
       for (const [key, value] of Object.entries(args.prismicConnectionArgs)) {
         connectionArgs =
           connectionArgs +
-          `${key}: ${Array.isArray(value) ? JSON.stringify(value) : value}, `
+          `${key}: ${
+            typeof value === 'object' && typeof value != null
+              ? JSON.stringify(value)
+              : value
+          }, `
       }
     }
 
