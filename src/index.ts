@@ -1,3 +1,15 @@
+const convertObjectToString = (value: any) => {
+  if (typeof value === 'string' || typeof value === 'number' || value == null) {
+    return value
+  }
+  let connectionArgs = ''
+  if (typeof value === 'object' && !Array.isArray(value)) {
+    Object.keys(value).map(key => {
+      connectionArgs += `${key}: "${value[key]}"`
+    })
+  }
+  return `{${connectionArgs}}`
+}
 export const prismicPagination = async (args: {
   prismicConnectionName: string
   postsPerPage: number
@@ -23,7 +35,11 @@ export const prismicPagination = async (args: {
       for (const [key, value] of Object.entries(args.prismicConnectionArgs)) {
         connectionArgs =
           connectionArgs +
-          `${key}: ${Array.isArray(value) ? JSON.stringify(value) : value}, `
+          `${key}: ${
+            Array.isArray(value)
+              ? JSON.stringify(value)
+              : convertObjectToString(value)
+          }, `
       }
     }
 
